@@ -9,6 +9,7 @@
     
 </head>
 <body>
+    <script src="weather1.1.js"></script>
     <div class="whole">
         <div class="search">
             <input type="text" placeholder="Enter a City Name" spellcheck="false">
@@ -47,52 +48,6 @@
             </div>
         </div>
     </div>
-<script>
-    const defaultcity = "Kolar";
-    const apikey = "21e6e9d4d662a85260c076f6bc56b52e";
-    const apiurl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-    
-    const searchBox = document.querySelector(".search input");
-    const searchBtn = document.querySelector(".search button");
-    const weatherIcon = document.querySelector(".weather-icon");
-    
-    async function checkWeather(city){
-        // Check if weather data is available in localStorage
-        const cachedWeather = localStorage.getItem('weatherData');
-        const cachedExpiry = localStorage.getItem('weatherExpiry');
-        if (cachedWeather && cachedExpiry > Date.now()) {
-            // Use cached weather data
-            displayWeather(JSON.parse(cachedWeather));
-        } else {
-            // Fetch weather data from server
-            const response = await fetch(apiurl + city + `&appid=${apikey}`);
-            if(response.status == 404){
-                document.querySelector(".error").style.display = "block";
-                document.querySelector(".weather").style.display = "none";
-            }
-            else{
-                const data = await response.json();
-                console.log(data);
-                // Store weather data in localStorage
-                localStorage.setItem('weatherData', JSON.stringify(data));
-                // Set expiry time (e.g., 1 hour)
-                const expiryTime = Date.now() + (1 * 60 * 60 * 1000); // 1 hour
-                localStorage.setItem('weatherExpiry', expiryTime);
-                displayWeather(data);
-            }
-        }
-    }
-    
-    // Function to display weather data
-    function displayWeather(data) {
-        // Your code to display weather data
-        // This function is not shown here for brevity
-    }
-    
-    searchBtn.addEventListener("click",()=>{
-        checkWeather(searchBox.value);
-    })
-    checkWeather(defaultcity);
-</script>
+
 </body>
 </html>

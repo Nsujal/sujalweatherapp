@@ -9,6 +9,7 @@
     
 </head>
 <body>
+    <script src="weather1.1.js"></script>
     <div class="whole">
         <div class="search">
             <input type="text" placeholder="Enter a City Name" spellcheck="false">
@@ -57,38 +58,45 @@
     const weatherIcon = document.querySelector(".weather-icon");
     
     async function checkWeather(city){
-        // Check if weather data is available in localStorage
-        const cachedWeather = localStorage.getItem('weatherData');
-        const cachedExpiry = localStorage.getItem('weatherExpiry');
-        if (cachedWeather && cachedExpiry > Date.now()) {
-            // Use cached weather data
-            displayWeather(JSON.parse(cachedWeather));
-        } else {
-            // Fetch weather data from server
-            const response = await fetch(apiurl + city + `&appid=${apikey}`);
-            if(response.status == 404){
-                document.querySelector(".error").style.display = "block";
-                document.querySelector(".weather").style.display = "none";
-            }
-            else{
-                const data = await response.json();
-                console.log(data);
-                // Store weather data in localStorage
-                localStorage.setItem('weatherData', JSON.stringify(data));
-                // Set expiry time (e.g., 1 hour)
-                const expiryTime = Date.now() + (1 * 60 * 60 * 1000); // 1 hour
-                localStorage.setItem('weatherExpiry', expiryTime);
-                displayWeather(data);
+        const response = await fetch(apiurl + city + `&appid=${apikey}`);
+    
+        var today = new Date();
+        var date = today.getDate();
+        var month = today.toLocaleDateString([], {month:"short"});
+        var year = today.getFullYear();
+        var day = today.toLocaleDateString([],{weekday:"long"});
+        var f = day + " |"+" "+month+" "+date+", "+year;
+    
+        if(response.status == 404){
+            document.querySelector(".error").style.display = "block";
+            document.querySelector(".weather").style.display = "none";
+        }
+        else{
+            var data = await response.json();
+            console.log(data);
+    
+            document.querySelector(".city").innerHTML = data.name;
+            document.querySelector(".temp").innerHTML = Math.round(data.main.temp) +"°c";
+            document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+            document.querySelector(".pressure").innerHTML = data.main.pressure + " hPa";
+            document.querySelector(".wind").innerHTML = data.wind.speed +" m/sec";
+            document.getElementById("time").innerHTML=f;
+    
+            if (data.weather[0].main == "Clouds") {
+                weatherIcon.src = "https://cdn3.iconfinder.com/data/icons/nature-emoji/50/Cloudy-256.png";
+            } else if (data.weather[0].main == "Clear") {
+                weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-256.png";
+            } else if (data.weather[0].main == "Rain") {
+                weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather07-1024.png";
+            } else if (data.weather[0].main == "Drizzle") {
+                weatherIcon.src = "https://cdn3.iconfinder.com/data/icons/spring-23/32/rain-rainfall-drizzle-sun-cloud-weather-forecast-256.png";
+            } else if (data.weather[0].main == "Mist") {
+                weatherIcon.src = "https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_49-256.png";
+            } else if (data.weather[0].main == "Haze") {
+                weatherIcon.src = "https://cdn1.iconfinder.com/data/icons/weather-471/128/HAZE-256.png";
             }
         }
     }
-    
-    // Function to display weather data
-    function displayWeather(data) {
-        // Your code to display weather data
-        // This function is not shown here for brevity
-    }
-    
     searchBtn.addEventListener("click",()=>{
         checkWeather(searchBox.value);
     })
@@ -96,4 +104,3 @@
 </script>
 </body>
 </html>
-
