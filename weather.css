@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+body{
+  background-image: url(https://www.ecofleetuk.com/wp-content/uploads/2016/12/PIXABAY-FREE-road-685655_1920.jpg);
+   
+}
+.whole{
+
+    width: 90%;
+    max-width: 600px;
+    background-image: url(https://images.pexels.com/photos/3068249/pexels-photo-3068249.jpeg?auto=compress&cs=tinysrgb&w=600);
+    color: black;
+    margin: 20px auto 0;
+    border-radius: 50px;
+    padding: 40px 35px;
+    text-align: center;
+}
+.search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.search input{
+    border: 0;
+    outline: 0;
+    background: rgb(197, 221, 234);
+    color: rgb(44, 42, 42);
+    padding: 10px 25px;
+    height: 60px;
+    border-radius: 30px;
+    flex: 1;
+    margin-right: 16px;
+    font-size: 18px;
+}
+.search button{
+    border: 0;
+    outline: 0;
+    background: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer; 
+}
+.search button img{
+    width: 16px;
+}
+.weather-icon{
+    width: 140px;
+    margin-top: 30px;
+}
+.weather h1{
+    font-size: 60px;
+    font-weight: 500;
+}
+.weather h2{
+    font-size: 40px;
+    font-weight: 400;
+    margin-top: -10px;
+}
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 50px;
+}
+.col{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+.col img{
+    width: 30px;
+    margin-right: 10px;
+}
+.humidity, .wind, .pressure{
+    font-size: 15px;
+    margin-top: -6px;
+}
+.error{
+    text-align: left;
+    margin-left: 17px;
+    font-size: 14px;
+    margin-top: 10px;
+    display: none;
+    color: red;
+}
+#time{
+    text-align: left;
+    margin-left: 17px;
+    font-size: 14px;
+    margin-top: 10px;     
+}
